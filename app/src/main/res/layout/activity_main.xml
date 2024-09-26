@@ -29,18 +29,27 @@
         android:layout_marginTop="8dp">
 
         <Button
+            android:id="@+id/btnEnglish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="English"
+            android:textSize="16sp"
+            android:padding="8dp"/>
+
+        <Button
             android:id="@+id/btnCzech"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Čeština"
             android:textSize="16sp"
-            android:padding="8dp"/>
+            android:padding="8dp"
+            android:layout_marginStart="16dp"/>
 
         <Button
-            android:id="@+id/btnEnglish"
+            android:id="@+id/btnGerman"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="English"
+            android:text="Deutsch"
             android:textSize="16sp"
             android:padding="8dp"
             android:layout_marginStart="16dp"/>

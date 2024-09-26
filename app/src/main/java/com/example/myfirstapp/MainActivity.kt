@@ -1,6 +1,5 @@
 package com.example.myfirstapp
 
-import android.content.DialogInterface
 import android.content.res.Configuration
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
@@ -22,7 +21,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var resultTextView: TextView
     private lateinit var genderGroup: RadioGroup
     private lateinit var satisfactionSlider: SeekBar
-    private lateinit var satisfactionLevelText: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +38,7 @@ class MainActivity : AppCompatActivity() {
         resultTextView = findViewById(R.id.resultTextView)
         val btnCzech: Button = findViewById(R.id.btnCzech)
         val btnEnglish: Button = findViewById(R.id.btnEnglish)
+        val btnGerman : Button = findViewById(R.id.btnGerman)
 
         submitButton.setOnClickListener {
             if (validateInputs()) {
@@ -77,6 +76,9 @@ class MainActivity : AppCompatActivity() {
 
         btnEnglish.setOnClickListener {
             setLocale("en")
+        }
+        btnGerman.setOnClickListener {
+            setLocale("de")
         }
     }
 

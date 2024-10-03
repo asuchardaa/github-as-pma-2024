@@ -53,7 +53,7 @@ fun OrderSystem() {
         "AMD 480x" -> painterResource(id = R.drawable.amd_480x_card)
         "GTX 950" -> painterResource(id = R.drawable.gtx_950_card)
         "GTX 1050" -> painterResource(id = R.drawable.gtx_1050_card)
-        else -> null // No image to display
+        else -> null
     }
 
     Scaffold(modifier = Modifier
@@ -93,7 +93,6 @@ fun OrderSystem() {
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Button to submit the order
             Button(
                 onClick = {
                     orderSummary = "Selected Card: $selectedCard\n" +
@@ -108,11 +107,9 @@ fun OrderSystem() {
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Text for order summary
             Text(text = "Order Summary:", style = MaterialTheme.typography.headlineSmall)
             BasicText(text = orderSummary)
 
-            // Display the image below the order summary
             Spacer(modifier = Modifier.height(16.dp))
             if (imageRes != null) {
                 Image(painter = imageRes, contentDescription = selectedCard, modifier = Modifier.size(200.dp))

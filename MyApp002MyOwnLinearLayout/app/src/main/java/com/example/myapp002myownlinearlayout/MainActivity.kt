@@ -6,7 +6,7 @@ import android.widget.TextView
 import androidx.activity.ComponentActivity
 
 class MainActivity : ComponentActivity() {
-    private lateinit var resultTextView: TextView
+    private lateinit var displayTextView: TextView
     private var currentNumber: String = ""
     private var operator: String? = null
     private var firstNumber: Double = 0.0
@@ -15,7 +15,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        resultTextView = findViewById(R.id.resultTextView)
+        displayTextView = findViewById(R.id.displayTextView)
 
         val buttons = listOf(
             R.id.btn0, R.id.btn1, R.id.btn2, R.id.btn3, R.id.btn4,
@@ -34,12 +34,13 @@ class MainActivity : ComponentActivity() {
             R.id.btn0, R.id.btn1, R.id.btn2, R.id.btn3, R.id.btn4,
             R.id.btn5, R.id.btn6, R.id.btn7, R.id.btn8, R.id.btn9 -> {
                 currentNumber += findViewById<Button>(id).text
-                resultTextView.text = currentNumber
+                displayTextView.text = currentNumber
             }
             R.id.btnAdd, R.id.btnSubtract, R.id.btnMultiply, R.id.btnDivide -> {
                 operator = findViewById<Button>(id).text.toString()
                 firstNumber = currentNumber.toDouble()
                 currentNumber = ""
+                displayTextView.text = "$firstNumber $operator"
             }
             R.id.btnEquals -> {
                 val secondNumber = currentNumber.toDouble()
@@ -50,7 +51,7 @@ class MainActivity : ComponentActivity() {
                     "/" -> firstNumber / secondNumber
                     else -> 0.0
                 }
-                resultTextView.text = result.toString()
+                displayTextView.text = result.toString()
                 currentNumber = result.toString()
                 operator = null
             }
@@ -58,7 +59,7 @@ class MainActivity : ComponentActivity() {
                 currentNumber = ""
                 operator = null
                 firstNumber = 0.0
-                resultTextView.text = ""
+                displayTextView.text = "0"
             }
         }
     }

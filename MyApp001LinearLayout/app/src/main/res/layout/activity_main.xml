@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@color/white"
+    android:gravity="center_horizontal">
+
+    <!-- Header -->
+    <TextView
+        android:id="@+id/header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:padding="16dp"
+        android:textColor="@color/black"/>
+
+    <!-- Language Switcher -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="8dp">
+
+        <Button
+            android:id="@+id/btnEnglish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="English"
+            android:textSize="16sp"
+            android:padding="8dp"/>
+
+        <Button
+            android:id="@+id/btnCzech"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Čeština"
+            android:textSize="16sp"
+            android:padding="8dp"
+            android:layout_marginStart="16dp"/>
+
+        <Button
+            android:id="@+id/btnGerman"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Deutsch"
+            android:textSize="16sp"
+            android:padding="8dp"
+            android:layout_marginStart="16dp"/>
+    </LinearLayout>
+
+    <!-- Divider Line -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#D3D3D3"
+        android:layout_marginTop="12dp"/>
+
+    <!-- First Name & Last Name Fields -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp">
+
+        <EditText
+            android:id="@+id/firstName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/edit_name"
+            android:inputType="textPersonName"
+            android:textSize="16sp"
+            android:padding="12dp"/>
+
+        <EditText
+            android:id="@+id/lastName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/edit_surname"
+            android:inputType="textPersonName"
+            android:textSize="16sp"
+            android:padding="12dp"
+            android:layout_marginStart="16dp"/>
+    </LinearLayout>
+
+    <!-- City -->
+    <EditText
+        android:id="@+id/city"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/edit_city"
+        android:inputType="text"
+        android:textSize="16sp"
+        android:padding="12dp"
+        android:layout_marginTop="16dp"/>
+
+    <EditText
+        android:id="@+id/age"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:maxLength="4"
+        android:hint="@string/edit_age"
+        android:inputType="number"
+        android:textSize="16sp"
+        android:padding="12dp"
+        android:layout_marginTop="16dp"/>
+
+    <!-- Gender -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/select_gender"
+            android:textSize="16sp"
+            android:paddingTop="16dp"
+            />
+
+    </LinearLayout>
+
+    <RadioGroup
+        android:id="@+id/genderGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radioMale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/gender_male"/>
+
+        <RadioButton
+            android:id="@+id/radioFemale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/gender_female"
+            android:layout_marginStart="16dp"/>
+    </RadioGroup>
+
+    <!-- Satisfaction Slider -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/satisfaction"
+        android:textSize="16sp"
+        android:paddingTop="16dp"/>
+
+    <SeekBar
+        android:id="@+id/satisfactionSlider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="10"
+        android:layout_marginTop="8dp"/>
+
+    <!-- Divider Line -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#D3D3D3"
+        android:layout_marginTop="16dp"/>
+
+    <!-- Buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="16dp">
+
+        <Button
+            android:id="@+id/submitButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/btn_send"
+            android:drawableLeft="@android:drawable/ic_menu_send"
+            android:textSize="16sp"
+            android:backgroundTint="@color/purple_200"
+            android:padding="12dp"/>
+
+        <Button
+            android:id="@+id/clearButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/btn_delete"
+            android:drawableLeft="@android:drawable/ic_menu_delete"
+            android:textSize="16sp"
+            android:backgroundTint="@color/red"
+            android:padding="12dp"
+            android:layout_marginStart="16dp"/>
+    </LinearLayout>
+
+    <!-- Result Section -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/resultTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            android:padding="16dp"
+            android:layout_marginTop="16dp"/>
+    </ScrollView>
+
+
+</LinearLayout>

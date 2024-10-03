@@ -1,0 +1,19 @@
+ <resources>
+        <string name="app_name">Meine erste App</string>
+        <string name="app_header">Formular</string>
+        <string name="hint_first_name">Vorname eingeben</string>
+        <string name="hint_last_name">Nachname eingeben</string>
+        <string name="hint_city">Stadt eingeben</string>
+        <string name="hint_age">Alter</string>
+        <string name="btn_send">Einreichen</string>
+        <string name="btn_delete">Löschen</string>
+        <string name="edit_name">Geben Sie den Namen ein</string>
+        <string name="edit_surname">Geben Sie den Nachnamen ein</string>
+        <string name="edit_city">Stadt</string>
+        <string name="edit_age">Alter</string>
+        <string name="result_text">Vorname: %1$s\nNachname: %2$s\nStadt: %3$s\nAlter: %4$s\nGeschlecht: %5$s\nZufriedenheit: %6$d</string>
+        <string name="select_gender">Geschlecht</string>
+        <string name="gender_female">Weiblich</string>
+        <string name="gender_male">Männlich</string>
+        <string name="satisfaction">Zufriedenheit</string>
+    </resources>

@@ -1,25 +1,13 @@
 package com.example.myapp005objednavka
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.selection.selectable
-import androidx.compose.foundation.text.BasicText
-import androidx.compose.material3.Button
-import androidx.compose.material3.Checkbox
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.RadioButton
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -31,104 +19,101 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
         setContent {
             MyApp005ObjednavkaTheme {
-                // Main layout
-                OrderSystem()
+                OrderSystemScreen()
             }
         }
     }
 }
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun OrderSystem() {
+fun OrderSystemScreen() {
     var selectedCard by remember { mutableStateOf("") }
     var extraCooling by remember { mutableStateOf(false) }
     var overclocking by remember { mutableStateOf(false) }
     var rgbLighting by remember { mutableStateOf(false) }
     var orderSummary by remember { mutableStateOf("") }
 
-    val imageRes = when (selectedCard) {
-        "AMD 480x" -> painterResource(id = R.drawable.amd_480x_card)
-        "GTX 950" -> painterResource(id = R.drawable.gtx_950_card)
-        "GTX 1050" -> painterResource(id = R.drawable.gtx_1050_card)
-        else -> null
-    }
-
-    Scaffold(modifier = Modifier
-        .fillMaxSize()
-        .padding(16.dp)) {
-
-        Column(modifier = Modifier.fillMaxSize()) {
-            Text(text = "Select Graphics Card:", style = MaterialTheme.typography.headlineSmall)
+    Scaffold { padding ->
+        Column(
+            modifier = Modifier
+                .padding(padding)
+                .fillMaxSize()
+                .padding(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text("Vyber si grafickou kartu:", style = MaterialTheme.typography.headlineSmall)
 
             val radioOptions = listOf("AMD 480x", "GTX 950", "GTX 1050")
-            Column {
-                radioOptions.forEach { text ->
-                    Row(
-                        Modifier
-                            .fillMaxWidth()
-                            .selectable(
-                                selected = (text == selectedCard),
-                                onClick = { selectedCard = text }
-                            )
-                            .padding(vertical = 8.dp)
-                    ) {
-                        RadioButton(
-                            selected = (text == selectedCard),
-                            onClick = { selectedCard = text },
-                            modifier = Modifier.padding(12.dp)
-                        )
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Text(text = text, style = MaterialTheme.typography.bodyLarge)
-                    }
+            radioOptions.forEach { option ->
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp)
+                ) {
+                    RadioButton(
+                        selected = (option == selectedCard),
+                        onClick = { selectedCard = option }
+                    )
+                    Text(option, modifier = Modifier.padding(start = 8.dp))
                 }
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
-            CheckboxWithLabel(checked = extraCooling, onCheckedChange = { extraCooling = it }, label = "Extra Cooling")
-            CheckboxWithLabel(checked = overclocking, onCheckedChange = { overclocking = it }, label = "Overclocking")
-            CheckboxWithLabel(checked = rgbLighting, onCheckedChange = { rgbLighting = it }, label = "RGB Lighting")
+            CheckboxWithLabel(
+                label = "Extra Cooling",
+                checked = extraCooling,
+                onCheckedChange = { extraCooling = it }
+            )
+            CheckboxWithLabel(
+                label = "Overclocking",
+                checked = overclocking,
+                onCheckedChange = { overclocking = it }
+            )
+            CheckboxWithLabel(
+                label = "RGB Lighting",
+                checked = rgbLighting,
+                onCheckedChange = { rgbLighting = it }
+            )
 
-            Spacer(modifier = Modifier.height(16.dp))
-
-            Button(
-                onClick = {
-                    orderSummary = "Selected Card: $selectedCard\n" +
-                            "Extra Cooling: ${if (extraCooling) "Yes" else "No"}\n" +
-                            "Overclocking: ${if (overclocking) "Yes" else "No"}\n" +
-                            "RGB Lighting: ${if (rgbLighting) "Yes" else "No"}"
-                },
-                modifier = Modifier.align(Alignment.CenterHorizontally)
-            ) {
+            Button(onClick = {
+                orderSummary = "Selected Card: $selectedCard\n" +
+                        "Extra Cooling: ${if (extraCooling) "Yes" else "No"}\n" +
+                        "Overclocking: ${if (overclocking) "Yes" else "No"}\n" +
+                        "RGB Lighting: ${if (rgbLighting) "Yes" else "No"}"
+            }) {
                 Text("Order")
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Text(orderSummary, modifier = Modifier.padding(top = 16.dp))
 
-            Text(text = "Order Summary:", style = MaterialTheme.typography.headlineSmall)
-            BasicText(text = orderSummary)
-
-            Spacer(modifier = Modifier.height(16.dp))
-            if (imageRes != null) {
-                Image(painter = imageRes, contentDescription = selectedCard, modifier = Modifier.size(200.dp))
+            val imageResource = when (selectedCard) {
+                "AMD 480x" -> R.drawable.amd_480x_card
+                "GTX 950" -> R.drawable.gtx_950_card
+                "GTX 1050" -> R.drawable.gtx_1050_card
+                else -> 0
+            }
+            if (imageResource != 0) {
+                Image(
+                    painter = painterResource(id = imageResource),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 16.dp)
+                )
             }
         }
     }
 }
 
-
-
 @Composable
-fun CheckboxWithLabel(checked: Boolean, onCheckedChange: (Boolean) -> Unit, label: String) {
+fun CheckboxWithLabel(label: String, checked: Boolean, onCheckedChange: (Boolean) -> Unit) {
     Row(verticalAlignment = Alignment.CenterVertically) {
         Checkbox(
             checked = checked,
             onCheckedChange = onCheckedChange
         )
-        Spacer(modifier = Modifier.width(8.dp))
-        Text(text = label, style = MaterialTheme.typography.bodyLarge)
+        Text(label)
     }
 }
 
@@ -136,6 +121,6 @@ fun CheckboxWithLabel(checked: Boolean, onCheckedChange: (Boolean) -> Unit, labe
 @Composable
 fun OrderSystemPreview() {
     MyApp005ObjednavkaTheme {
-        OrderSystem()
+        OrderSystemScreen()
     }
 }

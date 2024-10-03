@@ -22,6 +22,7 @@ class MainActivity : ComponentActivity() {
             }
         }
 
+        // Ovládání ViewBindingu pro zobrazení textu po kliknutí
         binding.btnOrder.setOnClickListener {
             binding.textSummary.text = "Objednávka odeslána přes ViewBinding!"
         }

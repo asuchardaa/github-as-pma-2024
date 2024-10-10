@@ -26,7 +26,7 @@ v Jetpack Compose, která vykresluje UI.
 V tomto případě bude tato funkce obsahovat
 veškerou logiku a UI pro tuto jednoduchou aplikaci.
  */
-
+// uvidime jooo
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ComposeExample() {

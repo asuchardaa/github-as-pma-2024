@@ -8,6 +8,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
@@ -53,13 +54,16 @@ fun ComposeExample() {
     var surname by remember { mutableStateOf("") }
     var age by remember { mutableStateOf("") }
     var place by remember { mutableStateOf("") }
+    var description by remember { mutableStateOf("") }
+    var quantity by remember { mutableStateOf("") }
     var resultText by remember { mutableStateOf("") }
 
     // Přidáme Scaffold, abychom mohli přidat TopAppBar
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Moje Aplikace", color = Color.White) }, // Nastaví barvu textu na bílou
+                title = { Text("Moje Aplikace", color = Color.White, textAlign = TextAlign.Center) },
+                // Nastaví barvu textu na bílou
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
                     containerColor = Color.DarkGray,  // Nastaví pozadí na černé
                     //titleContentColor = Color.White // Nastaví barvu textu na bílou
@@ -105,6 +109,22 @@ fun ComposeExample() {
                 label = { Text("Bydliště") },
                 modifier = Modifier.fillMaxWidth()
             )
+            OutlinedTextField(
+                value = description,
+                onValueChange = { description = it },
+                label = { Text("Popis") }, // New text field for description
+                modifier = Modifier.fillMaxWidth()
+            )
+            OutlinedTextField(
+                value = quantity,
+                onValueChange = {
+                    if (it.all { char -> char.isDigit() }) { // Restrict to numbers only
+                        quantity = it
+                    }
+                },
+                label = { Text("Množství (číslice pouze)") }, // New number field for quantity
+                modifier = Modifier.fillMaxWidth()
+            )
 
             // Tlačítka Odeslat a Vymazat
             Row(
@@ -113,7 +133,8 @@ fun ComposeExample() {
             ) {
                 Button(
                     onClick = {
-                        resultText = "Jmenuji se $name $surname. Je mi $age let a moje bydliště je $place."
+                        resultText = "Jmenuji se $name $surname. Je mi $age let a moje bydliště je $place." +
+                                " Můj popis je $description a množství je $quantity."
                     },
                     modifier = Modifier.weight(1f)
                 ) {

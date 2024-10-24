@@ -20,7 +20,6 @@ class DetailFragment : Fragment() {
         textViewTitle = view.findViewById(R.id.textViewTitle)
         textViewAuthor = view.findViewById(R.id.textViewAuthor)
 
-        // Načtení argumentů a aktualizace textových polí
         arguments?.let {
             val title = it.getString("title")
             val author = it.getString("author")
@@ -30,7 +29,6 @@ class DetailFragment : Fragment() {
         return view
     }
 
-    // Metoda pro aktualizaci zobrazení detailů
     fun updateDetails(title: String, author: String) {
         textViewTitle.text = title
         textViewAuthor.text = author

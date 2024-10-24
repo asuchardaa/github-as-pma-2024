@@ -16,7 +16,6 @@ class ImageFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_image, container, false)
         val imageView = view.findViewById<ImageView>(R.id.imageView)
 
-        // Nastavíme nějaký obrázek, např. z drawable složky
         imageView.setImageResource(R.drawable.sample_image)
 
         return view

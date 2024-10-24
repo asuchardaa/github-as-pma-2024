@@ -14,23 +14,19 @@ class MainActivity : AppCompatActivity() {
         val buttonBooks = findViewById<Button>(R.id.button_books)
         val buttonImages = findViewById<Button>(R.id.button_images)
 
-        // Výchozí stav: zobrazení seznamu knih
         if (savedInstanceState == null) {
             replaceFragment(ListFragment())
         }
 
-        // Přepnutí na seznam knih
         buttonBooks.setOnClickListener {
             replaceFragment(ListFragment())
         }
 
-        // Přepnutí na zobrazení obrázků
         buttonImages.setOnClickListener {
             replaceFragment(ImageFragment())
         }
     }
 
-    // Metoda pro přepínání fragmentů
     private fun replaceFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, fragment)
@@ -41,14 +37,12 @@ class MainActivity : AppCompatActivity() {
     fun onBookSelected(title: String, author: String) {
         val detailFragment = DetailFragment()
 
-        // Předáme detaily knihy do DetailFragmentu
         val bundle = Bundle().apply {
             putString("title", title)
             putString("author", author)
         }
         detailFragment.arguments = bundle
 
-        // Nahradíme stávající fragment (ListFragment) DetailFragmentem
         replaceFragment(detailFragment)
     }
 }

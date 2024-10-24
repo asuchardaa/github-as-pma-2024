@@ -31,7 +31,6 @@ class ListFragment : Fragment() {
         )
         listView.adapter = adapter
 
-        // Při kliknutí na položku zavoláme metodu aktivity
         listView.setOnItemClickListener { _, _, position, _ ->
             val selectedBook = books[position]
             (activity as? MainActivity)?.onBookSelected(selectedBook.first, selectedBook.second)

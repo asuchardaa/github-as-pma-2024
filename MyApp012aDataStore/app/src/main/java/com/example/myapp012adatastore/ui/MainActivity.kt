@@ -1,4 +1,4 @@
-package com.example.myapp012adatastore
+package com.example.myapp012adatastore.ui
 
 import android.content.Context
 import android.os.Bundle
@@ -11,6 +11,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import com.example.myapp012adatastore.R
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.runBlocking

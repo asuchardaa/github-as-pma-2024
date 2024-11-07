@@ -66,22 +66,19 @@ class MainActivity : AppCompatActivity() {
 
         for (i in 0..3) {
             if (indexOfCorrectAnswer == i) {
-                // Correct answer based on operation
                 when (cal) {
                     "+" -> answers.add(a + b)
                     "-" -> answers.add(a - b)
                     "*" -> answers.add(a * b)
                     "/" -> {
-                        // Ensure that division has a remainder of 0
                         if (b != 0) {
                             answers.add(a / b)
                         } else {
-                            answers.add(a)  // fallback
+                            answers.add(a)
                         }
                     }
                 }
             } else {
-                // Generate a random wrong answer, avoid repeating correct answers
                 var wrongAnswer: Int
                 do {
                     wrongAnswer = random.nextInt(20)
@@ -91,7 +88,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        // Set the answers on buttons
         try {
             btn0!!.text = "${answers[0]}"
             btn1!!.text = "${answers[1]}"

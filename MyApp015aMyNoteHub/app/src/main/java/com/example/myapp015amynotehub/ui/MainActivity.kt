@@ -20,8 +20,10 @@ import com.example.myapp015amynotehub.models.Category
 import com.example.myapp015amynotehub.models.Note
 import com.example.myapp015amynotehub.models.NoteTagCrossRef
 import com.example.myapp015amynotehub.models.Tag
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() {
 
@@ -72,14 +74,14 @@ class MainActivity : AppCompatActivity() {
     private fun setupCategoryFilter() {
         lifecycleScope.launch {
             val categories = database.categoryDao().getAllCategories().first()
-            val categoryNames = categories.map { it.name }
+            val categoryNames = listOf("Všechny kategorie") + categories.map { it.name }
             val categoryAdapter = ArrayAdapter(this@MainActivity, android.R.layout.simple_spinner_item, categoryNames)
             categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             binding.filterCategorySpinner.adapter = categoryAdapter
 
             binding.filterCategorySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-                    selectedCategory = categoryNames[position]
+                    selectedCategory = if (position == 0) null else categoryNames[position]
                     loadNotes()
                 }
 
@@ -90,6 +92,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
 
     private fun setupTagFilter() {
         binding.filterTagsButton.setOnClickListener {
@@ -134,31 +137,34 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
-            noteAdapter = NoteAdapter(notes, onDeleteClick = { note -> deleteNote(note) }, onEditClick = { note -> showEditNoteDialog(note) })
-            binding.recyclerView.adapter = noteAdapter
-        }
-    }
-
-
-    private fun insertSampleNotes() {
-        lifecycleScope.launch {
-            val sampleNotes = listOf(
-                Note(title = "Vzorek 1", content = "Obsah první testovací poznámky"),
-                Note(title = "Vzorek 2", content = "Obsah druhé testovací poznámky"),
-                Note(title = "Vzorek 3", content = "Obsah třetí testovací poznámky")
+            noteAdapter = NoteAdapter(
+                notes,
+                onDeleteClick = { note -> deleteNote(note) },
+                onEditClick = { note -> showEditNoteDialog(note) },
+                getCategoryName = { categoryId -> getCategoryNameForNote(categoryId) },
+                getTagsForNote = { noteId -> getTagsForNoteFromDatabase(noteId) },
+                lifecycleScope = lifecycleScope
             )
-            sampleNotes.forEach { database.noteDao().insert(it) }
+            binding.recyclerView.adapter = noteAdapter
+
         }
     }
 
-    private fun getSampleNotes(): List<Note> {
-        // Testovací seznam poznámek
-        return listOf(
-            Note(title = "Poznámka 1", content = "Obsah první poznámky"),
-            Note(title = "Poznámka 2", content = "Obsah druhé poznámky"),
-            Note(title = "Poznámka 3", content = "Obsah třetí poznámky")
-        )
+    private suspend fun getCategoryNameForNote(categoryId: Int?): String {
+        return withContext(Dispatchers.IO) {
+            categoryId?.let {
+                database.categoryDao().getCategoryById(it)?.name ?: "Bez kategorie"
+            } ?: "Bez kategorie"
+        }
     }
+
+    private suspend fun getTagsForNoteFromDatabase(noteId: Int): List<String> {
+        return withContext(Dispatchers.IO) {
+            val tags = database.noteTagDao().getTagsForNote(noteId).first()
+            tags.map { it.name }
+        }
+    }
+
 
     private fun showEditNoteDialog(note: Note) {
         val dialogView = layoutInflater.inflate(R.layout.dialog_add_note, null)
@@ -321,8 +327,6 @@ class MainActivity : AppCompatActivity() {
 
         dialog.show()
     }
-
-
 
     private fun addNoteToDatabase(title: String, content: String, categoryName: String, selectedTags: List<String>) {
         lifecycleScope.launch {

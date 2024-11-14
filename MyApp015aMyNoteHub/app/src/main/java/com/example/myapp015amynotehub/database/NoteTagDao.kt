@@ -1,6 +1,9 @@
-package com.example.myapp015amynotehub
+package com.example.myapp015amynotehub.database
 
 import androidx.room.*
+import com.example.myapp015amynotehub.models.Note
+import com.example.myapp015amynotehub.models.NoteTagCrossRef
+import com.example.myapp015amynotehub.models.Tag
 import kotlinx.coroutines.flow.Flow
 
 @Dao

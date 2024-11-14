@@ -1,4 +1,4 @@
-package com.example.myapp015amynotehub
+package com.example.myapp015amynotehub.database
 
 import android.content.Context
 import androidx.room.Room

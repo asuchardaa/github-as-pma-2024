@@ -1,4 +1,4 @@
-package com.example.myapp015amynotehub
+package com.example.myapp015amynotehub.ui
 
 import android.os.Bundle
 import android.widget.ArrayAdapter
@@ -8,7 +8,14 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.myapp015amynotehub.R
+import com.example.myapp015amynotehub.database.NoteHubDatabase
+import com.example.myapp015amynotehub.database.NoteHubDatabaseInstance
 import com.example.myapp015amynotehub.databinding.ActivityMainBinding
+import com.example.myapp015amynotehub.models.Category
+import com.example.myapp015amynotehub.models.Note
+import com.example.myapp015amynotehub.models.NoteTagCrossRef
+import com.example.myapp015amynotehub.models.Tag
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 

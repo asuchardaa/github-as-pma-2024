@@ -1,4 +1,4 @@
-package com.example.myapp015amynotehub
+package com.example.myapp015amynotehub.ui
 
 
 import android.view.LayoutInflater
@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapp015amynotehub.databinding.ItemNoteBinding
+import com.example.myapp015amynotehub.models.Note
 
 class NoteAdapter(
     private val notes: List<Note>,

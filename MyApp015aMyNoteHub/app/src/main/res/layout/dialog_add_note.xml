@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/editTextTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Název poznámky" />
+
+    <EditText
+        android:id="@+id/editTextContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Obsah poznámky"
+        android:layout_marginTop="8dp" />
+
+    <!-- Label pro kategorii -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Kategorie"
+        android:textStyle="bold"
+        android:layout_marginTop="16dp" />
+
+    <!-- Spinner pro výběr jedné kategorie -->
+    <Spinner
+        android:id="@+id/spinnerCategory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp" />
+
+    <!-- Label pro štítky -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Štítky"
+        android:textStyle="bold"
+        android:layout_marginTop="16dp" />
+
+    <!-- EditText pro zobrazení a spuštění MultiChoice dialogu pro štítky -->
+    <EditText
+        android:id="@+id/editTextTags"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Vyberte štítky"
+        android:focusable="false"
+        android:layout_marginTop="8dp" />
+</LinearLayout>

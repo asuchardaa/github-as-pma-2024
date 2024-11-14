@@ -1,16 +1,19 @@
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginVertical="8dp"
-    android:padding="16dp"
+    android:layout_marginHorizontal="16dp"
     app:cardElevation="4dp"
+    app:cardCornerRadius="12dp"
     app:cardBackgroundColor="@color/cardBackgroundColor">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="16dp">
 
         <TextView
             android:id="@+id/note_title"
@@ -35,25 +38,29 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <!-- Ikonka pro editaci -->
+            android:orientation="horizontal"
+            android:gravity="end"
+            android:layout_marginTop="8dp">
+
             <ImageView
                 android:id="@+id/icon_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
                 android:src="@drawable/baseline_edit_24"
-                android:contentDescription="Upravit poznámku" />
+                android:contentDescription="Upravit poznámku"
+                app:tint="@color/primaryColor" />
 
-            <!-- Ikonka pro mazání -->
             <ImageView
                 android:id="@+id/icon_delete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
                 android:src="@drawable/baseline_delete_outline_24"
+                android:tint="@color/errorColor"
                 android:contentDescription="Smazat poznámku" />
         </LinearLayout>
 
     </LinearLayout>
+
 </com.google.android.material.card.MaterialCardView>

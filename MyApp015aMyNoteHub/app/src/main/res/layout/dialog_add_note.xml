@@ -1,54 +1,64 @@
-<?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="16dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="16dp"
+    app:cardElevation="8dp"
+    app:cardCornerRadius="12dp">
 
-    <EditText
-        android:id="@+id/editTextTitle"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Název poznámky" />
+        android:orientation="vertical"
+        android:padding="16dp">
 
-    <EditText
-        android:id="@+id/editTextContent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Obsah poznámky"
-        android:layout_marginTop="8dp" />
+        <EditText
+            android:id="@+id/editTextTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Název poznámky"
+            android:inputType="text"
+            android:backgroundTint="@color/primaryColor" />
 
-    <!-- Label pro kategorii -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Kategorie"
-        android:textStyle="bold"
-        android:layout_marginTop="16dp" />
+        <EditText
+            android:id="@+id/editTextContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Obsah poznámky"
+            android:inputType="textMultiLine"
+            android:backgroundTint="@color/primaryColor"
+            android:layout_marginTop="8dp" />
 
-    <!-- Spinner pro výběr jedné kategorie -->
-    <Spinner
-        android:id="@+id/spinnerCategory"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kategorie"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/primaryTextColor" />
 
-    <!-- Label pro štítky -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Štítky"
-        android:textStyle="bold"
-        android:layout_marginTop="16dp" />
+        <Spinner
+            android:id="@+id/spinnerCategory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp" />
 
-    <!-- EditText pro zobrazení a spuštění MultiChoice dialogu pro štítky -->
-    <EditText
-        android:id="@+id/editTextTags"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Vyberte štítky"
-        android:focusable="false"
-        android:layout_marginTop="8dp" />
-</LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Štítky"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/primaryTextColor" />
+
+        <EditText
+            android:id="@+id/editTextTags"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Vyberte štítky"
+            android:focusable="false"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="@color/primaryColor" />
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

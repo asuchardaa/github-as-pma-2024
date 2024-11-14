@@ -22,5 +22,8 @@ interface NoteTagDao {
     @Query("SELECT * FROM note_table INNER JOIN note_tag_cross_ref ON note_table.id = note_tag_cross_ref.noteId WHERE note_tag_cross_ref.tagId = :tagId")
     fun getNotesForTag(tagId: Int): Flow<List<Note>>
 
+    @Transaction
+    @Query("SELECT * FROM tag_table INNER JOIN note_tag_cross_ref ON tag_table.id = note_tag_cross_ref.tagId WHERE note_tag_cross_ref.noteId = :noteId")
+    fun getTagsForNoteSync(noteId: Int): List<Tag>
 
 }

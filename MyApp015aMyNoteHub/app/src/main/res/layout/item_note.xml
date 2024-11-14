@@ -15,6 +15,7 @@
         android:orientation="vertical"
         android:padding="16dp">
 
+        <!-- Název poznámky -->
         <TextView
             android:id="@+id/note_title"
             android:layout_width="wrap_content"
@@ -24,6 +25,7 @@
             android:textSize="18sp"
             android:textStyle="bold" />
 
+        <!-- Obsah poznámky -->
         <TextView
             android:id="@+id/note_content_preview"
             android:layout_width="wrap_content"
@@ -35,6 +37,59 @@
             android:textSize="14sp"
             android:layout_marginTop="4dp" />
 
+        <!-- Kategorie poznámky -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:id="@+id/category_icon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_category"
+                android:contentDescription="Ikona kategorie"
+                app:tint="@color/primaryColor" />
+
+            <TextView
+                android:id="@+id/note_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="Kategorie"
+                android:textColor="@color/primaryTextColor"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <!-- Štítky poznámky -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="4dp"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:id="@+id/tags_icon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_tag"
+                android:contentDescription="Ikona štítků"
+                app:tint="@color/secondaryTextColor" />
+
+            <TextView
+                android:id="@+id/note_tags"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="Štítky"
+                android:textColor="@color/secondaryTextColor"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <!-- Ikony pro úpravu a smazání poznámky -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -57,10 +112,9 @@
                 android:layout_height="wrap_content"
                 android:padding="8dp"
                 android:src="@drawable/baseline_delete_outline_24"
-                android:tint="@color/errorColor"
-                android:contentDescription="Smazat poznámku" />
+                android:contentDescription="Smazat poznámku"
+                app:tint="@color/errorColor" />
         </LinearLayout>
 
     </LinearLayout>
-
 </com.google.android.material.card.MaterialCardView>

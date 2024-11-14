@@ -10,8 +10,8 @@ import com.example.myapp015amynotehub.models.Note
 
 class NoteAdapter(
     private val notes: List<Note>,
-    private val onDeleteClick: (Note) -> Unit,  // Funkce pro mazání poznámky
-    private val onEditClick: (Note) -> Unit  // Funkce pro editaci poznámky
+    private val onDeleteClick: (Note) -> Unit,
+    private val onEditClick: (Note) -> Unit
 ) : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {

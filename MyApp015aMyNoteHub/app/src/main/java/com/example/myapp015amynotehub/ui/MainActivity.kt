@@ -1,6 +1,8 @@
 package com.example.myapp015amynotehub.ui
 
 import android.os.Bundle
+import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Spinner
@@ -9,8 +11,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapp015amynotehub.R
+import com.example.myapp015amynotehub.database.CategoryDao
 import com.example.myapp015amynotehub.database.NoteHubDatabase
 import com.example.myapp015amynotehub.database.NoteHubDatabaseInstance
+import com.example.myapp015amynotehub.database.NoteTagDao
 import com.example.myapp015amynotehub.databinding.ActivityMainBinding
 import com.example.myapp015amynotehub.models.Category
 import com.example.myapp015amynotehub.models.Note
@@ -24,7 +28,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var noteAdapter: NoteAdapter
     private lateinit var database: NoteHubDatabase
+    private lateinit var categoryDao: CategoryDao
+    private lateinit var noteTagDao: NoteTagDao
 
+    private var selectedCategory: String? = null
+    private var selectedTags = mutableListOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +47,9 @@ class MainActivity : AppCompatActivity() {
         // Vložení výchozích kategorií a štítků do databáze
         insertDefaultCategories()
         insertDefaultTags()
+
+        setupCategoryFilter()
+        setupTagFilter()
 
         // Inicializace RecyclerView
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
@@ -58,16 +69,73 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun setupCategoryFilter() {
+        lifecycleScope.launch {
+            val categories = database.categoryDao().getAllCategories().first()
+            val categoryNames = categories.map { it.name }
+            val categoryAdapter = ArrayAdapter(this@MainActivity, android.R.layout.simple_spinner_item, categoryNames)
+            categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            binding.filterCategorySpinner.adapter = categoryAdapter
+
+            binding.filterCategorySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                    selectedCategory = categoryNames[position]
+                    loadNotes()
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>) {
+                    selectedCategory = null
+                    loadNotes()
+                }
+            }
+        }
+    }
+
+    private fun setupTagFilter() {
+        binding.filterTagsButton.setOnClickListener {
+            lifecycleScope.launch {
+                val tags = database.tagDao().getAllTags().first()
+                val tagNames = tags.map { it.name }.toTypedArray()
+                val checkedItems = BooleanArray(tagNames.size) { i -> selectedTags.contains(tagNames[i]) }
+
+                AlertDialog.Builder(this@MainActivity)
+                    .setTitle("Vyberte štítky")
+                    .setMultiChoiceItems(tagNames, checkedItems) { _, which, isChecked ->
+                        if (isChecked) {
+                            selectedTags.add(tagNames[which])
+                        } else {
+                            selectedTags.remove(tagNames[which])
+                        }
+                    }
+                    .setPositiveButton("OK") { _, _ -> loadNotes() }
+                    .setNegativeButton("Zrušit", null)
+                    .show()
+            }
+        }
+    }
+
     private fun loadNotes() {
         lifecycleScope.launch {
-            database.noteDao().getAllNotes().collect { notes ->
-                noteAdapter = NoteAdapter(
-                    notes,
-                    onDeleteClick = { note -> deleteNote(note) },
-                    onEditClick = { note -> showEditNoteDialog(note) }  // Při kliknutí na editaci
-                )
-                binding.recyclerView.adapter = noteAdapter
+            var notes = database.noteDao().getAllNotes().first()
+
+            // Filtrace podle kategorie
+            if (selectedCategory != null) {
+                notes = notes.filter { note ->
+                    val category = database.categoryDao().getAllCategories().first().find { it.id == note.categoryId }
+                    category?.name == selectedCategory
+                }
             }
+
+            // Filtrace podle štítků
+            if (selectedTags.isNotEmpty()) {
+                notes = notes.filter { note ->
+                    val noteTags = database.noteTagDao().getTagsForNote(note.id).first().map { it.name }
+                    selectedTags.all { it in noteTags }
+                }
+            }
+
+            noteAdapter = NoteAdapter(notes, onDeleteClick = { note -> deleteNote(note) }, onEditClick = { note -> showEditNoteDialog(note) })
+            binding.recyclerView.adapter = noteAdapter
         }
     }
 
@@ -197,8 +265,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
-
     private fun showAddNoteDialog() {
         val dialogView = layoutInflater.inflate(R.layout.dialog_add_note, null)
         val titleEditText = dialogView.findViewById<EditText>(R.id.editTextTitle)
@@ -255,6 +321,7 @@ class MainActivity : AppCompatActivity() {
 
         dialog.show()
     }
+
 
 
     private fun addNoteToDatabase(title: String, content: String, categoryName: String, selectedTags: List<String>) {

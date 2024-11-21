@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.recyclerview.widget.RecyclerView
+import com.example.myapp015amynotehub.R
 import com.example.myapp015amynotehub.databinding.ItemNoteBinding
 import com.example.myapp015amynotehub.models.Note
 import kotlinx.coroutines.Dispatchers
@@ -49,12 +50,12 @@ class NoteAdapter(
 
             binding.iconDelete.setOnClickListener {
                 AlertDialog.Builder(itemView.context)
-                    .setTitle("Smazat poznámku")
-                    .setMessage("Opravdu chcete tuto poznámku smazat?")
-                    .setPositiveButton("Ano") { _, _ ->
+                    .setTitle(itemView.context.getString(R.string.delete_note))
+                    .setMessage(itemView.context.getString(R.string.delete_note_confirmation))
+                    .setPositiveButton(itemView.context.getString(R.string.yes)) { _, _ ->
                         onDeleteClick(note)
                     }
-                    .setNegativeButton("Ne", null)
+                    .setNegativeButton(itemView.context.getString(R.string.no), null)
                     .show()
             }
 

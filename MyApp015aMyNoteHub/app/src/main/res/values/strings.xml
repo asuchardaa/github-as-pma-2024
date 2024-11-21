@@ -1,3 +1,23 @@
 <resources>
-    <string name="app_name">MyApp015aMyNoteHub</string>
+    <string name="app_name">Moje Poznámky</string>
+    <string name="app_title">Moje Poznámky</string>
+    <string name="filter_tags_button">Filtrace štítků</string>
+    <string name="fab_add_note">Přidat poznámku</string>
+    <string name="dialog_add_note_title">Přidat poznámku</string>
+    <string name="dialog_edit_note_title">Upravit poznámku</string>
+    <string name="edit_text_title_hint">Název poznámky</string>
+    <string name="edit_text_content_hint">Obsah poznámky</string>
+    <string name="category_label">Kategorie</string>
+    <string name="tags_label">Štítky</string>
+    <string name="select_tags">Vyberte štítky</string>
+    <string name="delete_note">Smazat poznámku</string>
+    <string name="delete_note_confirmation">Opravdu chcete tuto poznámku smazat?</string>
+    <string name="yes">Ano</string>
+    <string name="no">Ne</string>
+    <string name="all_categories">Všechny kategorie</string>
+    <string name="cancel">Zrušit</string>
+    <string name="save">Uložit</string>
+    <string name="part_of_note">Úryvek poznámky...</string>
+    <string name="icon_of_category">Ikona kategorie</string>
+    <string name="switch_language_button">Přepnout jazyk</string>
 </resources>

@@ -20,7 +20,7 @@
             android:id="@+id/note_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Název Poznámky"
+            android:text="@string/edit_text_title_hint"
             android:textColor="@color/primaryTextColor"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -30,7 +30,7 @@
             android:id="@+id/note_content_preview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Úryvek obsahu poznámky"
+            android:text="@string/part_of_note"
             android:maxLines="2"
             android:ellipsize="end"
             android:textColor="@color/secondaryTextColor"
@@ -50,7 +50,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_category"
-                android:contentDescription="Ikona kategorie"
+                android:contentDescription="@string/icon_of_category"
                 app:tint="@color/primaryColor" />
 
             <TextView
@@ -58,7 +58,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="Kategorie"
+                android:text="@string/category_label"
                 android:textColor="@color/primaryTextColor"
                 android:textSize="14sp" />
         </LinearLayout>
@@ -84,7 +84,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="Štítky"
+                android:text="@string/tags_label"
                 android:textColor="@color/secondaryTextColor"
                 android:textSize="14sp" />
         </LinearLayout>

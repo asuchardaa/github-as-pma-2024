@@ -1,5 +1,6 @@
 package com.example.myapp015amynotehub.ui
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -24,6 +25,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
 
@@ -35,10 +37,10 @@ class MainActivity : AppCompatActivity() {
 
     private var selectedCategory: String? = null
     private var selectedTags = mutableListOf<String>()
+    private var currentLanguage = "cs"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -69,12 +71,52 @@ class MainActivity : AppCompatActivity() {
         binding.fabAddNote.setOnClickListener {
             showAddNoteDialog()
         }
+
+        binding.switchLanguageButton.setOnClickListener {
+            switchLanguage()
+        }
     }
+
+    private fun switchLanguage() {
+        currentLanguage = if (currentLanguage == "en") "cs" else "en"
+        setLocale(currentLanguage)
+    }
+
+    private fun setLocale(languageCode: String) {
+        val locale = Locale(languageCode)
+        Locale.setDefault(locale)
+
+        val config = Configuration()
+        config.setLocale(locale)
+
+        // Vytvoření nového kontextu s novou konfigurací
+        val context = createConfigurationContext(config)
+
+        // Aktualizace prostředí pro binding a další prvky
+        resources.updateConfiguration(config, resources.displayMetrics)
+
+        // Obnovení textů uživatelského rozhraní
+        updateUITexts()
+
+        // Znovu načtení seznamů z databáze
+        setupCategoryFilter()
+        setupTagFilter()
+        loadNotes()
+    }
+
+    private fun updateUITexts() {
+        binding.appTitle.text = getString(R.string.app_title)
+        binding.filterTagsButton.text = getString(R.string.filter_tags_button)
+        binding.switchLanguageButton.text = getString(R.string.switch_language_button)
+        binding.fabAddNote.contentDescription = getString(R.string.fab_add_note)
+    }
+
 
     private fun setupCategoryFilter() {
         lifecycleScope.launch {
             val categories = database.categoryDao().getAllCategories().first()
-            val categoryNames = listOf("Všechny kategorie") + categories.map { it.name }
+            val allCategoriesText = getString(R.string.all_categories)
+            val categoryNames = listOf(allCategoriesText) + categories.map { it.name }
             val categoryAdapter = ArrayAdapter(this@MainActivity, R.layout.spinner_item, categoryNames)
             categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             binding.filterCategorySpinner.adapter = categoryAdapter
@@ -101,7 +143,7 @@ class MainActivity : AppCompatActivity() {
                 val checkedItems = BooleanArray(tagNames.size) { i -> selectedTags.contains(tagNames[i]) }
 
                 AlertDialog.Builder(this@MainActivity)
-                    .setTitle("Vyberte štítky")
+                    .setTitle(getString(R.string.select_tags))
                     .setMultiChoiceItems(tagNames, checkedItems) { _, which, isChecked ->
                         if (isChecked) {
                             selectedTags.add(tagNames[which])
@@ -110,7 +152,7 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
                     .setPositiveButton("OK") { _, _ -> loadNotes() }
-                    .setNegativeButton("Zrušit", null)
+                    .setNegativeButton(getString(R.string.cancel), null)
                     .show()
             }
         }
@@ -164,7 +206,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
     private fun showEditNoteDialog(note: Note) {
         val dialogView = layoutInflater.inflate(R.layout.dialog_add_note, null)
         val titleEditText = dialogView.findViewById<EditText>(R.id.editTextTitle)
@@ -203,7 +244,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 AlertDialog.Builder(this@MainActivity)
-                    .setTitle("Vyberte štítky")
+                    .setTitle(getString(R.string.select_tags))
                     .setMultiChoiceItems(tagNames, checkedItems) { _, which, isChecked ->
                         if (isChecked) {
                             selectedTags.add(tagNames[which])
@@ -214,22 +255,22 @@ class MainActivity : AppCompatActivity() {
                     .setPositiveButton("OK") { _, _ ->
                         tagsEditText.setText(selectedTags.joinToString(", "))
                     }
-                    .setNegativeButton("Zrušit", null)
+                    .setNegativeButton(getString(R.string.cancel), null)
                     .show()
             }
         }
 
         // Zobrazení dialogu pro úpravu poznámky
         val dialog = AlertDialog.Builder(this)
-            .setTitle("Upravit poznámku")
+            .setTitle(getString(R.string.dialog_edit_note_title))
             .setView(dialogView)
-            .setPositiveButton("Uložit") { _, _ ->
+            .setPositiveButton(getString(R.string.save)) { _, _ ->
                 val updatedTitle = titleEditText.text.toString()
                 val updatedContent = contentEditText.text.toString()
                 val selectedCategory = categorySpinner.selectedItem.toString()
                 updateNoteInDatabase(note, updatedTitle, updatedContent, selectedCategory, selectedTags)
             }
-            .setNegativeButton("Zrušit", null)
+            .setNegativeButton(getString(R.string.cancel), null)
             .create()
 
         dialog.show()
@@ -266,7 +307,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
-            loadNotes()  // Aktualizace seznamu poznámek
+            loadNotes()  // aktualizuju
         }
     }
 
@@ -295,7 +336,7 @@ class MainActivity : AppCompatActivity() {
                 val checkedItems = BooleanArray(tagNames.size)
 
                 AlertDialog.Builder(this@MainActivity)
-                    .setTitle("Vyberte štítky")
+                    .setTitle(getString(R.string.select_tags))
                     .setMultiChoiceItems(tagNames, checkedItems) { _, which, isChecked ->
                         if (isChecked) {
                             selectedTags.add(tagNames[which])
@@ -306,22 +347,22 @@ class MainActivity : AppCompatActivity() {
                     .setPositiveButton("OK") { _, _ ->
                         tagsEditText.setText(selectedTags.joinToString(", "))
                     }
-                    .setNegativeButton("Zrušit", null)
+                    .setNegativeButton(getString(R.string.cancel), null)
                     .show()
             }
         }
 
         // Zobrazení dialogu pro přidání poznámky
         val dialog = AlertDialog.Builder(this)
-            .setTitle("Přidat poznámku")
+            .setTitle(getString(R.string.dialog_add_note_title))
             .setView(dialogView)
-            .setPositiveButton("Přidat") { _, _ ->
+            .setPositiveButton(getString(R.string.fab_add_note)) { _, _ ->
                 val title = titleEditText.text.toString()
                 val content = contentEditText.text.toString()
                 val selectedCategory = categorySpinner.selectedItem.toString()
                 addNoteToDatabase(title, content, selectedCategory, selectedTags)
             }
-            .setNegativeButton("Zrušit", null)
+            .setNegativeButton(getString(R.string.cancel), null)
             .create()
 
         dialog.show()
@@ -359,7 +400,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun insertDefaultCategories() {
         lifecycleScope.launch {
-            val existingCategories = database.categoryDao().getAllCategories().first()  // Použití first() pro získání seznamu
+            val existingCategories = database.categoryDao().getAllCategories().first()
             if (existingCategories.isEmpty()) {
                 val defaultCategories = listOf(
                     Category(name = "Práce"),
@@ -385,6 +426,4 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
-
 }

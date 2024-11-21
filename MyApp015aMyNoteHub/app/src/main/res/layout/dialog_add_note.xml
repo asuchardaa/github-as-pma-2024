@@ -16,7 +16,7 @@
             android:id="@+id/editTextTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Název poznámky"
+            android:hint="@string/edit_text_title_hint"
             android:inputType="text"
             android:backgroundTint="@color/primaryColor" />
 
@@ -24,7 +24,7 @@
             android:id="@+id/editTextContent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Obsah poznámky"
+            android:hint="@string/edit_text_content_hint"
             android:inputType="textMultiLine"
             android:backgroundTint="@color/primaryColor"
             android:layout_marginTop="8dp" />
@@ -32,7 +32,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Kategorie"
+            android:text="@string/category_label"
             android:textStyle="bold"
             android:layout_marginTop="16dp"
             android:textColor="@color/white" />
@@ -46,7 +46,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Štítky"
+            android:text="@string/tags_label"
             android:textStyle="bold"
             android:layout_marginTop="16dp"
             android:textColor="@color/white" />
@@ -55,7 +55,7 @@
             android:id="@+id/editTextTags"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Vyberte štítky"
+            android:hint="@string/select_tags"
             android:focusable="false"
             android:layout_marginTop="8dp"
             android:backgroundTint="@color/primaryColor" />

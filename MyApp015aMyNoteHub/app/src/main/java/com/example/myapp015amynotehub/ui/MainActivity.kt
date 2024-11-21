@@ -75,7 +75,7 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             val categories = database.categoryDao().getAllCategories().first()
             val categoryNames = listOf("Všechny kategorie") + categories.map { it.name }
-            val categoryAdapter = ArrayAdapter(this@MainActivity, android.R.layout.simple_spinner_item, categoryNames)
+            val categoryAdapter = ArrayAdapter(this@MainActivity, R.layout.spinner_item, categoryNames)
             categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             binding.filterCategorySpinner.adapter = categoryAdapter
 
@@ -92,7 +92,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
 
     private fun setupTagFilter() {
         binding.filterTagsButton.setOnClickListener {
@@ -133,7 +132,7 @@ class MainActivity : AppCompatActivity() {
             if (selectedTags.isNotEmpty()) {
                 notes = notes.filter { note ->
                     val noteTags = database.noteTagDao().getTagsForNote(note.id).first().map { it.name }
-                    selectedTags.all { it in noteTags }
+                    selectedTags.any { it in noteTags }
                 }
             }
 

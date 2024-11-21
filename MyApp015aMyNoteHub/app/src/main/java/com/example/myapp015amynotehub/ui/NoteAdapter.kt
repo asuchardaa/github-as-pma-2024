@@ -17,7 +17,7 @@ class NoteAdapter(
     private val onEditClick: (Note) -> Unit,
     private val getCategoryName: suspend (Int?) -> String,
     private val getTagsForNote: suspend (Int) -> List<String>,
-    private val lifecycleScope: LifecycleCoroutineScope // Přidání lifecycleScope
+    private val lifecycleScope: LifecycleCoroutineScope
 ) : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
@@ -52,7 +52,7 @@ class NoteAdapter(
                     .setTitle("Smazat poznámku")
                     .setMessage("Opravdu chcete tuto poznámku smazat?")
                     .setPositiveButton("Ano") { _, _ ->
-                        onDeleteClick(note)  // Vyvolání funkce pro mazání poznámky
+                        onDeleteClick(note)
                     }
                     .setNegativeButton("Ne", null)
                     .show()

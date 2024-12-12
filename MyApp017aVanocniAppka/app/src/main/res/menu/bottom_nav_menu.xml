@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_greeting"
+        android:title="Vánoční přání"
+        android:icon="@drawable/ic_gift" />
+    <item
+        android:id="@+id/nav_tree"
+        android:title="Vykresli stromeček"
+        android:icon="@drawable/ic_tree" />
+    <item
+        android:id="@+id/nav_settings"
+        android:title="Nastavení"
+        android:icon="@drawable/ic_settings" />
+</menu>

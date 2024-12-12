@@ -1,0 +1,103 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="16dp"
+    android:background="@drawable/christmas_background">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Vánoční přání"
+        android:textSize="24sp"
+        android:textColor="#FF5733"
+        android:textStyle="bold"
+        android:layout_alignParentTop="true"/>
+
+    <TextView
+        android:id="@+id/countdown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Odpočet do Vánoc: 25 dní"
+        android:textSize="18sp"
+        android:textColor="#388E3C"
+        android:layout_below="@id/title"
+        android:layout_marginTop="16dp" />
+
+    <EditText
+        android:id="@+id/recipientName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Jméno příjemce"
+        android:layout_below="@id/countdown"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#FF5733"
+        android:textColor="#FFFFFF"
+        android:padding="8dp"/>
+
+    <EditText
+        android:id="@+id/customMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Vánoční zpráva"
+        android:layout_below="@id/recipientName"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="#FF5733"
+        android:textColor="#FFFFFF"
+        android:padding="8dp"/>
+
+    <Spinner
+        android:id="@+id/imageSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/customMessage"
+        android:layout_marginTop="16dp"/>
+
+    <ImageView
+        android:id="@+id/chosenImage"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_below="@id/imageSpinner"
+        android:layout_marginTop="16dp"
+        android:contentDescription="Vybraný obrázek" />
+
+    <Button
+        android:id="@+id/sendButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Odeslat na email"
+        android:layout_below="@id/chosenImage"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#FF5733"
+        android:textColor="#FFFFFF"/>
+
+    <Button
+        android:id="@+id/shareButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sdílet na sociální sítě"
+        android:layout_below="@id/sendButton"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="#FF5733"
+        android:textColor="#FFFFFF"/>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/snowfallAnimationView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="16dp"
+        tools:ignore="MissingClass" />
+
+    <Button
+        android:id="@+id/toggleAnimationButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pauza/Obnovit animaci"
+        android:layout_below="@id/snowfallAnimationView"
+        android:layout_marginTop="16dp"/>
+</RelativeLayout>

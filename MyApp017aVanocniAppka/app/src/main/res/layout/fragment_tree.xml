@@ -1,0 +1,55 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@drawable/christmas_background">
+
+    <TextView
+        android:id="@+id/treeTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Vykresli svůj vánoční stromeček"
+        android:textSize="24sp"
+        android:textColor="#FF5733"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/treeSizeInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Zadejte velikost stromečku"
+        android:inputType="number"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#388E3C"
+        android:textColor="#FFFFFF"
+        android:padding="8dp"/>
+
+    <Button
+        android:id="@+id/drawButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Vykreslit stromeček"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#D32F2F"
+        android:textColor="#FFFFFF"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/treeTextView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text=""
+            android:textSize="18sp"
+            android:textColor="#FFF"
+            android:fontFamily="monospace"
+            android:lineSpacingExtra="4dp"
+            android:gravity="center" />
+    </ScrollView>
+
+</LinearLayout>

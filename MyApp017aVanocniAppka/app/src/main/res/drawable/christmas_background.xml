@@ -1,0 +1,4 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@android:color/black" android:alpha="0.8"/>
+    <item android:drawable="@drawable/christmas_background_image"/>
+</layer-list>

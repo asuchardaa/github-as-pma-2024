@@ -62,13 +62,6 @@ class ChristmasTreeFragment : Fragment(R.layout.fragment_tree) {
             treeBuilder.append(decoratedStars).append("\n")
         }
 
-        val trunkWidth = 3
-        val trunkHeight = 2
-        val trunkSpaces = " ".repeat(size - trunkWidth / 2)
-        for (i in 0 until trunkHeight) {
-            treeBuilder.append(trunkSpaces).append("|".repeat(trunkWidth)).append("\n")
-        }
-
         animateTreeFadeIn()
         startSparkleEffect()
 
@@ -96,7 +89,6 @@ class ChristmasTreeFragment : Fragment(R.layout.fragment_tree) {
                 handler.postDelayed(this, 1000)
             }
         }
-
         handler.postDelayed(runnable, 1000)
     }
 }

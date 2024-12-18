@@ -17,22 +17,20 @@ class MainActivity : AppCompatActivity() {
 
         val bottomNav: BottomNavigationView = findViewById(R.id.bottom_navigation)
 
-        // Nastavení defaultního fragmentu
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.nav_host_fragment, GreetingFragment())
                 .commit()
         }
 
-        // Nastavení posluchače pro BottomNavigation
         bottomNav.setOnItemSelectedListener { item ->
             val selectedFragment: Fragment = when (item.itemId) {
-                R.id.nav_greeting -> GreetingFragment() // Vánoční přání
-                R.id.nav_tree -> ChristmasTreeFragment() // Vykreslení stromečku
-                R.id.nav_settings -> SettingsFragment() // Nastavení
+                R.id.nav_greeting -> GreetingFragment()
+                R.id.nav_tree -> ChristmasTreeFragment()
+                R.id.nav_settings -> SettingsFragment()
                 else -> GreetingFragment()
             }
-            // Nahrazení fragmentu na základě výběru
+
             supportFragmentManager.beginTransaction()
                 .replace(R.id.nav_host_fragment, selectedFragment)
                 .commit()
